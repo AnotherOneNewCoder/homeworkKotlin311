@@ -1,4 +1,6 @@
 import homework31.attach.Attachment
+import java.lang.RuntimeException
+import java.util.*
 
 data class Post(
     val id: Int,
@@ -35,7 +37,6 @@ object WallService {
         for ((index, post2) in posts.withIndex()) {
             when {
                 post2.id.equals(post.id) -> {
-                    println("found id in array with index: $index")
                     val postUpdate = post.copy(ownerId = post2.ownerId, date = post2.date)
                     posts.set(index, postUpdate)
                     return true
@@ -45,13 +46,43 @@ object WallService {
         }
         return false
     }
+
+    //    fun createComment(postId: Int, comment: Comment): Comment {
+//        try {
+//            for ((index, post) in posts.withIndex()){
+//                if (postId == post.id){
+//                    comments += comment
+//                    val updateComment = post.copy(comment = comments)
+//                    posts.set(index, updateComment)
+//                    return comments.last()
+//                }
+//            }
+//        } catch (e:PostNotFoundException) {
+//            println("no post with id: $postId")
+//        }
+//        return comment
+//    }
     fun createComment(postId: Int, comment: Comment): Comment {
-        TODO()
+        var check: Boolean = true
+        for ((index, post) in posts.withIndex()){
+            if (postId == post.id){
+                comments += comment
+                val updateComment = post.copy(comment = comments)
+                posts.set(index, updateComment)
+                check = false
+                return comments.last()
+            }
+
+        }
+        if (check)
+            throw PostNotFoundException("Id $postId not found")
+        return comment
     }
 }
-
+class PostNotFoundException(message: String): RuntimeException(message)
 class Comment(
     counts: Int = 0,
+    var commet: String = "",
     var canPost: Boolean = true,
     var groupsCanPost: Boolean = true,
     var canClose: Boolean = true,
@@ -65,7 +96,7 @@ class Comment(
         }
 
     override fun toString(): String {
-        return " counts = $counts, canPost = $canPost, groupsCanPost = $groupsCanPost, canClose = $canClose, canOpen = $canOpen"
+        return " counts = $counts, comment: $commet ,canPost = $canPost, groupsCanPost = $groupsCanPost, canClose = $canClose, canOpen = $canOpen"
     }
 }
 //count (integer) — число пользователей, которым понравилась запись;

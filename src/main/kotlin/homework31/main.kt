@@ -5,6 +5,8 @@ fun main() {
     val com = Comment()
     val arrayComment = arrayOf(com)
     val like = Likes()
+    val newCom = Comment(6, "hi")
+    val newCom2 = Comment(6, "hello")
     like.counts = -4
     com.counts = - 10
 
@@ -26,7 +28,12 @@ fun main() {
     WallService.add(post1)
     WallService.add(post2)
     WallService.add(post3)
-    WallService.print()
+//    WallService.print()
     WallService.update(post4)
+//    WallService.print()
+    WallService.createComment(3, newCom)
     WallService.print()
+    WallService.createComment(3, newCom2)
+    WallService.print()
+    WallService.createComment(15, newCom)
 }
