@@ -2,9 +2,11 @@ package homework31.postandservice
 
 
 import Comment
+import CommetNotFoundException
 import Likes
 import Post
 import PostNotFoundException
+import ReasonNotFoundException
 import WallService
 import homework31.attach.*
 import homework31.files.*
@@ -76,5 +78,30 @@ class WallServiceTest {
         val result = service.update(update)
         assertFalse(result)
     }
+
+    @Test
+    fun toComplainDone() {
+        val service = WallService
+        val complain = Comment(13, 13, "fourth")
+        val result = println(service.toComplain(complain, 6))
+        assertEquals(kotlin.Unit, result)
+    }
+    @Test(expected = CommetNotFoundException::class)
+    fun toComplainFailsNoComment() {
+        val service = WallService
+        val complain = Comment(13, 17, "fourth")
+        service.toComplain(complain,1)
+
+    }
+    @Test(expected = ReasonNotFoundException::class)
+    fun toComplainFailsNoReason() {
+        val service = WallService
+        val complain = Comment(11, 11, "second")
+        service.toComplain(complain,19)
+
+    }
+
+
+
 }
 

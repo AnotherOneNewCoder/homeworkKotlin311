@@ -102,7 +102,7 @@ object WallService {
                 reason(reason)
                 comments2.removeAt(index)
                 check = false
-                println(comments2)
+                //println(comments2)
                 return "Successful removed"
                 }
             }
