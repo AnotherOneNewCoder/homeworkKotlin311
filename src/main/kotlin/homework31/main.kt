@@ -2,11 +2,14 @@ import homework31.attach.*
 import homework31.files.*
 
 fun main() {
-    val com = Comment()
+    val com = Comment(id = 1)
     val arrayComment = arrayOf(com)
     val like = Likes()
-    val newCom = Comment(6, "hi")
-    val newCom2 = Comment(6, "hello")
+    val newCom = Comment(6,7, "hi")
+    val newCom2 = Comment(6, 8,"hello")
+    val complain = Comment(13, 13, "fourth")
+    val complain2 = Comment(13, 17, "fourth")
+    val complain3 = Comment(11, 11, "second")
     like.counts = -4
     com.counts = - 10
 
@@ -35,6 +38,10 @@ fun main() {
     WallService.print()
     WallService.createComment(3, newCom2)
     WallService.print()
-    WallService.createComment(15, newCom)
+    //WallService.createComment(15, newCom)
     WallService.print()
+    println(WallService.toComplain(complain, 6))
+//    println(WallService.toComplain(complain3, 17))
+//    println(WallService.toComplain(complain2, 6))
+
 }

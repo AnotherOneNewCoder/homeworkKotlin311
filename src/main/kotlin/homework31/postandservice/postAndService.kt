@@ -18,6 +18,12 @@ data class Post(
 object WallService {
     private var posts = emptyArray<Post>()
     private var comments = emptyArray<Comment>()
+    private var comments2 = mutableListOf(
+        Comment(10, 10, "first"),
+        Comment(11, 11, "second"),
+        Comment(12, 12, "third"),
+        Comment(13, 13, "fourth")
+    )
     private var id = 0
 
 
@@ -47,21 +53,63 @@ object WallService {
         return false
     }
 
-//        fun createComment1(postId: Int, comment: Comment): Comment {
-//        try {
-//            for ((index, post) in posts.withIndex()){
-//                if (postId == post.id){
-//                    comments += comment
-//                    val updateComment = post.copy(comment = comments)
-//                    posts.set(index, updateComment)
-//                    return comments.last()
+//    0 — спам;
+//    1 — детская порнография;
+//    2 — экстремизм;
+//    3 — насилие;
+//    4 — пропаганда наркотиков;
+//    5 — материал для взрослых;
+//    6 — оскорбление;
+//    8 — призывы к суициду.
+
+
+    fun reason(number:Int){
+        when(number) {
+            0 -> println("спам")
+            1 -> println("детская порнография")
+            2 -> println("экстремизм")
+            3 -> println("насилие")
+            4 -> println("пропаганда наркотиков")
+            5 -> println("материал для взрослых")
+            6 -> println("оскорбление")
+            8 -> println("призывы к суициду")
+            else -> throw ReasonNotFoundException("No reason")
+        }
+    }
+//    fun toComplain(comment: Comment, reason: Int): String {
+//        var check = true
+//        for ((index, post) in posts.withIndex()) {
+//            for ((index, comm) in comments.withIndex()) {
+//                if (comment.id == comm.id){
+//                    reason(reason)
+//                    comments.drop(index)
+//
+//                    return "Successful removed"
 //                }
 //            }
-//        } catch (e:PostNotFoundException) {
-//            println("no post with id: $postId")
+//            val updateComments = post.copy(comment = comments)
+//            posts.set(index, updateComments)
+//            check = false
 //        }
-//        return comment
+//        if (check)
+//            throw CommetNotFoundException("Comment not found")
+//        return "Nothing to remove"
 //    }
+    fun toComplain(comment: Comment, reason: Int): String {
+        var check = true
+        for ((index, comm) in comments2.withIndex()) {
+            if (comment.id == comm.id){
+                reason(reason)
+                comments2.removeAt(index)
+                check = false
+                println(comments2)
+                return "Successful removed"
+                }
+            }
+        if (check)
+            throw CommetNotFoundException("Comment not found")
+        return "Nothing to remove"
+    }
     fun createComment(postId: Int, comment: Comment): Comment {
         var check: Boolean = true
         for ((index, post) in posts.withIndex()){
@@ -80,8 +128,11 @@ object WallService {
     }
 }
 class PostNotFoundException(message: String): RuntimeException(message)
+class CommetNotFoundException(message: String): RuntimeException(message)
+class ReasonNotFoundException(message: String): RuntimeException(message)
 class Comment(
     counts: Int = 0,
+    var id: Int,
     var commet: String = "",
     var canPost: Boolean = true,
     var groupsCanPost: Boolean = true,

@@ -13,7 +13,7 @@ import org.junit.Test
 
 
 class WallServiceTest {
-    val com = Comment(1, "com")
+    val com = Comment(1, 1,"com")
     val arrayComment = arrayOf(com)
     private var posts = emptyArray<Post>()
     private var id = 0
@@ -27,7 +27,7 @@ class WallServiceTest {
     @Test
     fun createComment() {
         val service = WallService
-        val necom = Comment(3, "newcom")
+        val necom = Comment(3, 1, "newcom")
         service.add(Post(0,1,1,10123,0,"test1", "test1",true,arrayComment,Likes(-3),arrayAttach))
         service.add(Post(0,1,1,10123,0,"test2", "test2",true,arrayComment,Likes(-3),arrayAttach))
         service.add(Post(0,1,1,10123,0,"test31", "test3",true,arrayComment,Likes(-3),arrayAttach))
@@ -38,7 +38,7 @@ class WallServiceTest {
     @Test(expected = PostNotFoundException::class)
     fun createCommentException() {
         val service = WallService
-        val necom = Comment(3, "newcom")
+        val necom = Comment(3, 1,"newcom")
         service.add(Post(0, 1, 1, 10123, 0, "test1", "test1", true, arrayComment, Likes(-3), arrayAttach))
         service.add(Post(0, 1, 1, 10123, 0, "test2", "test2", true, arrayComment, Likes(-3), arrayAttach))
         service.add(Post(0, 1, 1, 10123, 0, "test31", "test3", true, arrayComment, Likes(-3), arrayAttach))
