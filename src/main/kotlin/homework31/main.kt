@@ -36,4 +36,5 @@ fun main() {
     WallService.createComment(3, newCom2)
     WallService.print()
     WallService.createComment(15, newCom)
+    WallService.print()
 }

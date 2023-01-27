@@ -47,7 +47,7 @@ object WallService {
         return false
     }
 
-    //    fun createComment(postId: Int, comment: Comment): Comment {
+//        fun createComment1(postId: Int, comment: Comment): Comment {
 //        try {
 //            for ((index, post) in posts.withIndex()){
 //                if (postId == post.id){
